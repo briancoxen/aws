@@ -13,4 +13,8 @@ body {
   height: 200px;
   background-color: #F0F8FF;
 }
+.footer-text {
+  color: #777;
+  margin: 20px 0;
+}
 
