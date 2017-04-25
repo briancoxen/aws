@@ -27,9 +27,13 @@
         </label>
       </div>
 
-      <div class="row" id="app">
-         <div ng-repeat="url in photos">
-           <img ng-src="http://www.briancoxen.me/{{ url }}"></img>
+      <div class="row">
+         <div ng-repeat="photo in photos track by $index" ng-if="$index % 4 == 0">
+           <div class="col-xs-3 letter-box" 
+             ng-repeat="i in [$index, $index + 1, $index + 2, $index + 3]" 
+             ng-if="photos[i] != null">
+             <img ng-src="http://www.briancoxen.me/{{ photos[i] }}"></img>
+           </div>
          </div>
       </div>
     </div>
