@@ -2,7 +2,7 @@ var awsApp = angular.module('awsApp', []);
 
 awsApp.service('awsService', ['$http', function ($http){
   this.getThumbnails = function(cb){
-    $http.get("https://b7i8yau8a4.execute-api.us-west-1.amazonaws.com/prod/getS3Thumbnails")
+    $http.get("https://zoitjqaeuh.execute-api.us-west-1.amazonaws.com/prod/getS3Thumbnails")
       .success(function(data){
         cb(data);
       })
@@ -10,8 +10,8 @@ awsApp.service('awsService', ['$http', function ($http){
     });
   }
 
-  this.postImage = function(cb) {
-    $http.post("https://b7i8yau8a4.execute-api.us-west-1.amazonaws.com/prod/postImage")
+  this.postImage = function(cb, url) {
+    $http.put("https://zzw1lwv0kb.execute-api.us-west-1.amazonaws.com/prod/postImage", { url: url })
       .success(function(data){
         cb(data);
       })
@@ -30,4 +30,10 @@ awsApp.controller('awsCtrl', ['$scope', 'awsService', function($scope, awsServic
       }
     });
   });
+
+  $scope.uploadImage = function() {
+    awsService.postImage(function(cb) {
+      console.log(cb);
+    }, $scope.imageURL); 
+  };
 }]);
