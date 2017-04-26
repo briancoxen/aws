@@ -2,10 +2,50 @@ html {
   position: relative;
   min-height: 100%;
 }
+
 body {
   margin-bottom: 200px;
   font-family: 'Exo', sans-serif;
 }
+
+header {
+  height: 150px;
+  background-color: #0C4B33;
+}
+
+hr {
+  color: #0C4B33;
+  width: 95%; 
+  height: .5px;
+}
+
+.about {
+  min-height: 500px; 
+}
+
+.links {
+  float: right;
+  top: 7%;
+  width: 3em;
+  margin-top: -3.5em;
+}
+
+.links a:link {
+    color: #fff;
+}
+
+.links a:visited {
+    color: #fff;
+}
+
+.links a:hover {
+    color: #51be95;
+}
+
+.links a:active {
+    color: #fff;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -13,8 +53,33 @@ body {
   height: 200px;
   background-color: #F0F8FF;
 }
+
 .footer-text {
   color: #777;
   margin: 20px 0;
 }
 
+.album {
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.photos {
+  padding-bottom: 40px;
+  width: 100%;
+  min-height: 600px;
+  background-color: #0087C9;
+  background-image: linear-gradient(-20deg, rgba(245, 33, 33, 0) 87%, rgba(255, 255, 255, 0.08) 15%), linear-gradient(-10deg, rgba(27, 0, 255, 0) 85%, rgba(255, 255, 255, 0.08) 15%), linear-gradient(103deg, rgba(255, 33, 33, 0) 84%, rgba(255, 255, 255, 0.08) 15%), radial-gradient(circle, #0087C9 0%, #0087C9 100%);
+}
+
+.photos img {
+  width: 150px;
+  height: auto;
+}
+
+.image {
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+}

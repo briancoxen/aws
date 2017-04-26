@@ -10,8 +10,8 @@ awsApp.service('awsService', ['$http', function ($http){
     });
   }
 
-  this.postImage = function(cb, url) {
-    $http.put("https://zzw1lwv0kb.execute-api.us-west-1.amazonaws.com/prod/postImage", { url: url })
+  this.postImage = function(cb, image) {
+    $http.post("https://zzw1lwv0kb.execute-api.us-west-1.amazonaws.com/prod/postImage", { url: image })
       .success(function(data){
         cb(data);
       })
