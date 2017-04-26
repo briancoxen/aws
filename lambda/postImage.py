@@ -1,3 +1,7 @@
+'''
+ *   Lambda function to receive a URL of an image provided by the API Gateway. The function
+ *   will download the file and store it in an S3 bucket.
+'''
 import urllib2
 from StringIO import StringIO
 import boto3
@@ -5,11 +9,19 @@ import json
 import datetime
 import os
 
+'''
+ *  datetime_handler
+ *  Converts the datetime object prior to creating JSON string. 
+'''
 def datetime_handler(x):
     if isinstance(x, datetime.datetime):
         return x.isoformat()
     raise TypeError("Unknown type")
     
+'''
+ *  responseBody
+ *  Creates the response body expected by the API Gateway.
+'''
 def responseBody(body, status):
     return {
         "isBase64Encoded": "false",
@@ -18,7 +30,11 @@ def responseBody(body, status):
                      "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"},
         "body": json.dumps(body, default=datetime_handler)
     }
-    
+   
+'''
+ *  postImage
+ *  Downloads a file into a buffer and stores into an S3 bucket.
+''' 
 def postImage(url):
     try:
         fileName = os.path.basename(url)
@@ -37,6 +53,10 @@ def postImage(url):
     else:
         return {"body":body, "status":500}
 
+'''
+ *  response
+ *  Determines route of API call based on HTTP Request.
+'''
 def response(event):
     if event['httpMethod'] == 'OPTIONS':
         return responseBody({}, 200)
