@@ -20,22 +20,30 @@ def responseBody(body, status):
     }
     
 def postImage(url):
-    fileName = os.path.basename(url)
-    file = urllib2.urlopen(url)
-    fileBuffer = StringIO(file.read())
-    s3 = boto3.client('s3')
-    resp = s3.put_object(ACL="public-read",
+    try:
+        fileName = os.path.basename(url)
+        file = urllib2.urlopen(url)
+        fileBuffer = StringIO(file.read())
+        s3 = boto3.client('s3')
+        body = s3.put_object(ACL="public-read",
                          Bucket="briancoxen.me",
                          Body=fileBuffer,
                          Key="photos/thumbnails/%s" % fileName);
-    return resp
+    except:
+        return {"body": {"error": "Internal server error!"}, "status":500}
+        
+    if body['ResponseMetadata']['HTTPStatusCode'] == 200:
+        return {"body":body, "status":200}
+    else:
+        return {"body":body, "status":500}
 
 def response(event):
     if event['httpMethod'] == 'OPTIONS':
         return responseBody({}, 200)
     elif event['httpMethod'] == 'POST':
         body = json.loads(event['body'])
-        return responseBody(postImage(body['url']), 200)
+        pI = postImage(body['url'])
+        return responseBody(pI['body'], pI['status'])
     else:
         return responseBody({}, 401)
 
