@@ -20,7 +20,11 @@ hr {
 }
 
 .about {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  padding-left: 40px;
   min-height: 500px; 
+  font-size: 150%;
 }
 
 .links {
