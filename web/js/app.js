@@ -21,6 +21,7 @@ awsApp.service('awsService', ['$http', function ($http){
 }]);
 
 awsApp.controller('awsCtrl', ['$scope', 'awsService', function($scope, awsService){
+  $scope.imageForm = true;
   $scope.photos = [];
 
   awsService.getThumbnails(function(cb) {
@@ -32,8 +33,20 @@ awsApp.controller('awsCtrl', ['$scope', 'awsService', function($scope, awsServic
   });
 
   $scope.uploadImage = function() {
+    $scope.imageForm = false;
+    $scope.loader = true;
     awsService.postImage(function(cb) {
-      console.log(cb);
+      $scope.loader = false;
+      $scope.imageForm = true;
+      $scope.imageURL = "";
+      $scope.photos = [];
+      awsService.getThumbnails(function(cb) {
+        angular.forEach(cb, function(values) {
+          if(values.Key.split("/")[2]) {
+            $scope.photos.push(values.Key);
+          }
+        });
+      });
     }, $scope.imageURL); 
   };
 }]);
